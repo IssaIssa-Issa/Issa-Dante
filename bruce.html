@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<body>
+<div>
+    <form>
+        <label for="fname">first name:</label>
+        <input type="text" id="fname" name="fname"><br><br>
+        <label for="lname">last name:</label>
+        <input type="text" id="lname" name="lname"><br><br>
+        <label for="uid">UserID:</label>
+        <input type="text" id="uid" name="uid"><br><br>
+        <label for="birthdate">birthdate:</label>
+        <input type="data" id="birthdate" name="birthdate"><br><br>
+        <input id="accept"type="submit" value="Accept">
+    </form>
+</div>
+<script>
+document.getElementById("accept").addEventListener("click", myFunction);
+function myFunction() {
+    var regName = ['A','B','C','D','E','F','G','H','I','J','K','L','M','O','P','Q','R','S','T','U','V','W','X','Y','Z,','a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'];
+    var fname = document.getElementById('fname').value;
+    var lname = document.getElementById('lname').value;
+    var uid = document.getElementById('uid').value;
+    if(!regName.test(fname) || !regName.test(lname)){
+        console.log('Invalid Entry.');
+    }
+    function getNumberOfDays() {
+        var birthdate = document.getElementById('birthdate').value;
+        const date1 = birthdate;
+        const date2 = Date.now();
+        const oneDay = 1000 * 60 * 60 * 24;
+        const diffInTime = date2.getTime() - date1.getTime();
+        const diffInDays = Math.round(diffInTime / oneDay);
+        
+  if (diffInDays < oneDay*365*18) {
+     console.log("I don't think you are old enough to take this course.");
+  }else{
+    console.log(fname + ' ' + lname + ' you have been breathing for ' + diffInDays + '!');
+  }return diffInDays;}getNumberOfDays();
+
+  let str = "";
+    function printX() { 
+    for (let i = 0; i < 20; i++) {
+    str = str.padStart(i,'x');
+    }
+    }printX();
+}
+</script>
+
+</body>
+</html>
