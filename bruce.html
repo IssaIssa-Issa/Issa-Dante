@@ -1,51 +1,117 @@
 <!DOCTYPE html>
 <html>
-<body>
-<div>
-    <form>
+  <body>
+    <div id="container">
+      <form>
         <label for="fname">first name:</label>
-        <input type="text" id="fname" name="fname"><br><br>
+        <input type="text" id="fname" name="fname" /><br /><br />
         <label for="lname">last name:</label>
-        <input type="text" id="lname" name="lname"><br><br>
+        <input type="text" id="lname" name="lname" /><br /><br />
         <label for="uid">UserID:</label>
-        <input type="text" id="uid" name="uid"><br><br>
-        <label for="birthdate">birthdate:</label>
-        <input type="data" id="birthdate" name="birthdate"><br><br>
-        <input id="accept"type="submit" value="Accept">
-    </form>
-</div>
-<script>
-document.getElementById("accept").addEventListener("click", myFunction);
-function myFunction() {
-    var regName = ['A','B','C','D','E','F','G','H','I','J','K','L','M','O','P','Q','R','S','T','U','V','W','X','Y','Z,','a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'];
-    var fname = document.getElementById('fname').value;
-    var lname = document.getElementById('lname').value;
-    var uid = document.getElementById('uid').value;
-    if(!regName.test(fname) || !regName.test(lname)){
-        console.log('Invalid Entry.');
-    }
-    function getNumberOfDays() {
-        var birthdate = document.getElementById('birthdate').value;
-        const date1 = birthdate;
-        const date2 = Date.now();
-        const oneDay = 1000 * 60 * 60 * 24;
-        const diffInTime = date2.getTime() - date1.getTime();
-        const diffInDays = Math.round(diffInTime / oneDay);
-        
-  if (diffInDays < oneDay*365*18) {
-     console.log("I don't think you are old enough to take this course.");
-  }else{
-    console.log(fname + ' ' + lname + ' you have been breathing for ' + diffInDays + '!');
-  }return diffInDays;}getNumberOfDays();
+        <input type="text" id="uid" name="uid" /><br /><br />
+        <label for="birthdate">birthday:</label>
+        <input
+          type="date"
+          id="birthday"
+          name="birthday"
+          min="1950-01-01"
+          max="2021-12-31"
+        /><br /><br />
+        <input id="accept" type="submit" value="Accept" />
+      </form>
+      <p id="message"></p>
+      <p id="pyramid"></p>
+    </div>
+    <script>
+      document.getElementById('accept').addEventListener('click', e => {
+        e.preventDefault()
+        console.log('its working')
+        handleSubmit()
+      })
 
-  let str = "";
-    function printX() { 
-    for (let i = 0; i < 20; i++) {
-    str = str.padStart(i,'x');
-    }
-    }printX();
-}
-</script>
+      let fname = document.getElementById('fname')
+      let lname = document.getElementById('lname')
+      let uid = document.getElementById('uid')
+      let birthday = document.getElementById('birthday')
+      let message = document.getElementById('message')
+      let pyramid = document.getElementById('pyramid')
 
-</body>
+      function handleSubmit() {
+        isFilled()
+        verify(uid)
+        dateDiff(birthday)
+        makePyramid(20)
+      }
+
+      // this is checking if the form is empty
+      function isFilled() {
+        if (fname.value === '') {
+          console.log(fname)
+          alert('Please enter your first name ')
+          return
+        } else if (lname.value === '') {
+          alert('Please enter your last name ')
+          return
+        } else if (uid.value === '') {
+          alert('Please enter your UserID  ')
+          return
+        }
+      }
+
+      // This is checking if the uid is good
+      function verify(uid) {
+        // Checks if the userID is too long or too short
+        if (uid.value.length < 😎 {
+          alert('UserID is not long enough ')
+          return
+        }
+        // Checks if there is a lowercase letter with regex
+        else if (uid.value.search(/[a-z]/) < 0) {
+          alert('Your UserId needs a lower case letter')
+          return
+        }
+        // Checks if there is a Upercase letter with regex
+        else if (uid.value.search(/[A-Z]/) < 0) {
+          alert.log('Your UserId needs an upper case letter')
+          return
+        }
+        // Checks if there is a number with regex
+        else if (uid.value.search(/[0-9]/) < 0) {
+          alert.log('Your UserId needs a number')
+          return
+        } else {
+          console.log('UserId is good')
+        }
+      }
+
+      // checking the date and returning the difference
+      function dateDiff(dob) {
+        // new Date() gets current date
+        let today = new Date()
+        // converts the string into a date
+        dob = new Date(birthday.value)
+        // subtracts the days since and rounds down
+        diff = Math.floor((today - dob) / (24 * 3600 * 1000))
+        if (diff < 365 * 18) {
+          alert('Not old enough to take the class')
+        } else {
+          message.innerHTML = ${fname.value} ${lname.value} you have been breathing for ${diff} days!
+        }
+      }
+
+      function makePyramid(n) {
+        // Each row
+        for (let i = 0; i <= n; i++) {
+          let string = ''
+          for (let j = 0; j < i; j++) {
+            string += 'x'
+          }
+          const newContent = document.createTextNode(string)
+          document.getElementById('container').append(newContent)
+          const newContent2 = document.createElement('br')
+          document.getElementById('container').append(newContent2)
+        }
+      }
+    </script>
+  </body>
 </html>
